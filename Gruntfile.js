@@ -81,8 +81,15 @@ module.exports = function(grunt) {
 					'.tmp/public/index.html': ['.tmp/public/templates/**/*']
 				}
 			}
-		}
+		},
 
+		watch : {
+			src: {
+				files: ['assets/js/**/*.js', 'assets/styles/**/*.less',
+						'assets/templates/**/*.html'],
+				tasks: ['default']
+			}
+		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-clean');
@@ -90,7 +97,17 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-scriptlinker');
 	grunt.loadNpmTasks('grunt-contrib-jst');
 	grunt.loadNpmTasks('grunt-contrib-less');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Default task(s).
-	grunt.registerTask('default', ['clean:dev', 'jst:dev', 'less:dev', 'copy:dev', 'scriptlinker:devJs', 'scriptlinker:devStyles', 'scriptlinker:devTpl']);
+	grunt.registerTask('default', [
+		'clean:dev',
+		'jst:dev',
+		'less:dev',
+		'copy:dev',
+		'scriptlinker:devJs',
+		'scriptlinker:devStyles',
+		'scriptlinker:devTpl',
+		'watch:src'
+	]);
 };
